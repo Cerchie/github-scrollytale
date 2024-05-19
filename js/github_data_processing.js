@@ -1,4 +1,4 @@
-class responseData {
+class ResponseData {
     constructor(owner, repo) {
         this.owner = owner;
         this.repo = repo;
@@ -39,7 +39,7 @@ class responseData {
       }
 }
 
-// const gettingData = new responseData;
+// const responseData = new ResponseData;
 
 
 //   (async () => {

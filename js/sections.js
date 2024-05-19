@@ -155,6 +155,8 @@ var scrollVis = function () {
    *  element for each filler word type.
    * @param histData - binned histogram data
    */
+//THIS IS WHERE I'LL MAKE CHANGES TO DISPLAY GITHUB DATA-- 
+//EACH PARAM WILL BE A RESULT FROM A METHOD IN THE GITHUB DATA PROCESSING CLASS
   var setupVis = function (wordData, fillerCounts, histData) {
     // axis
     g.append('g')
@@ -501,6 +503,7 @@ var scrollVis = function () {
    * shows: first half of histogram
    *
    */
+  //NOTE: THE ORDER OF HIDING AND SHOWING IS IMPORTANT HERE
   function showHistPart() {
     // switch the axis to histogram one
     showAxis(xAxisHist);
@@ -797,3 +800,6 @@ function display(data) {
 // 1. WILL NEED A https://refactoring.guru/design-patterns/abstract-factory TYPE THING TO RETURN THE DATA -- DIFFERENT METHODS ON THE CLASS FOR EA DATA SOURCE. 
 // 2. WILL NEED TO GRAB ORG, REPO NAME FROM FORM INPUT
 d3.tsv('data/words.tsv', display);
+
+
+//NEED TO CHART THE FUNCTION FLOW HERE SO I KNOW WHAT I NEED TO CHANGE
