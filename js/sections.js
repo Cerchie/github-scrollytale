@@ -168,13 +168,13 @@ var scrollVis = function () {
       .attr('class', 'title openvis-title')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text('2013');
+      .text('GitHub Repos');
 
-    g.append('text')
-      .attr('class', 'sub-title openvis-title')
-      .attr('x', width / 2)
-      .attr('y', (height / 3) + (height / 5))
-      .text('OpenVis Conf');
+    // g.append('text')
+    //   .attr('class', 'sub-title openvis-title')
+    //   .attr('x', width / 2)
+    //   .attr('y', (height / 3) + (height / 5))
+    //   .text('GitHub Repos');
 
     g.selectAll('.openvis-title')
       .attr('opacity', 0);
@@ -793,4 +793,7 @@ function display(data) {
 }
 
 // load data and display
+// WHERE I'LL MAKE CHANGES TO ACCESS GITHUB DATA
+// 1. WILL NEED A https://refactoring.guru/design-patterns/abstract-factory TYPE THING TO RETURN THE DATA -- DIFFERENT METHODS ON THE CLASS FOR EA DATA SOURCE. 
+// 2. WILL NEED TO GRAB ORG, REPO NAME FROM FORM INPUT
 d3.tsv('data/words.tsv', display);

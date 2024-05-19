@@ -50,12 +50,14 @@
 }
 
 #vis .title {
-  font-size:120px;
+  font-size: 3em;
   text-anchor: middle;
 }
 
+
+
 #vis .sub-title {
-  font-size:80px;
+  font-size: 3em;
   text-anchor: middle;
 }
 
