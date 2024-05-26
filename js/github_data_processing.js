@@ -39,9 +39,11 @@ class ResponseData {
       }
 }
 
+export default ResponseData;
+
 // const responseData = new ResponseData;
 
 
 //   (async () => {
-//    console.log(await gettingData.getSize("apache", "flink"))
+//    console.log(await responseData.getSize("apache", "flink"))
 //   })();

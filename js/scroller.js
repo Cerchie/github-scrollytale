@@ -132,3 +132,5 @@ function scroller() {
 
   return scroll;
 }
+
+export default scroller;
