@@ -187,6 +187,11 @@ var scrollVis = function () {
    */
 
 
+
+  
+}
+
+
   /**
    * showTitle - initial title
    *
@@ -367,9 +372,6 @@ function showEnd() {
     .duration(0)
     .attr('opacity', 0);
    }
-
-  
-}
    /**
    * activate -
    *
@@ -377,6 +379,7 @@ function showEnd() {
    */
    chart.activate = function (index) {
     activeIndex = index;
+    console.log('INDEX', index);
     var sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
     var scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
     scrolledSections.forEach(function (i) {
