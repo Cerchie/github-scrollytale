@@ -90,7 +90,7 @@ var scrollVis = function () {
 //THIS IS WHERE I'LL MAKE CHANGES TO DISPLAY GITHUB DATA-- 
 //EACH PARAM WILL BE A RESULT FROM A METHOD IN THE GITHUB DATA PROCESSING CLASS
   var setupVis = function (languages, topTenContributors, starGazersAndForks, maintenance, size) {
-
+console.log('language',languages)
     g.append('text')
       .attr('class', 'openvis-title')
       .attr('x', width / 2)
@@ -101,44 +101,44 @@ var scrollVis = function () {
       .attr('class', 'size-text')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text(size);
-      g.select('.size-text').style('opacity', 0);
+      .text(size)
+      .attr('opacity', 0);
 
-      g.append('text')
+    g.append('text')
       .attr('class', 'maintenance-text')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text(maintenance.created_at + ' / ' + maintenance.pushed_at);
-      g.select('.maintenance-text').style('opacity', 0);
+      .text(maintenance.created_at + ' / ' + maintenance.pushed_at)
+      .attr('opacity', 0);
 
-      g.append('text')
+    g.append('text')
       .attr('class', 'stargazers-and-forks-text')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text(starGazersAndForks.stargazers_count + ' / ' + starGazersAndForks.forks_count);
-      g.select('.stargazers-and-forks-text').style('opacity', 0);
+      .text(starGazersAndForks.stargazers_count + ' / ' + starGazersAndForks.forks_count)
+      .attr('opacity', 0);
 
-      g.append('text')
+    g.append('text')
       .attr('class', 'top-contributors-text')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text(topTenContributors[0]);
-      g.select('.top-contributors-text').style('opacity', 0);
+      .text(topTenContributors[0])
+      .attr('opacity', 0);
 
-      g.append('text')
+    g.append('text')
       .attr('class', 'languages-text')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text(languages[0]);
-      g.select('.languages-text').style('opacity', 0);
+      .text(languages.Java)
+      .attr('opacity', 0);
       
 
-      g.append('text')
+    g.append('text')
       .attr('class', 'end-text')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text('END');
-      g.select('.end-text').style('opacity', 0);
+      .text('END')
+      .attr('opacity', 0);
       
   };
 
@@ -206,7 +206,7 @@ var scrollVis = function () {
       .duration(600)
       .attr('opacity', 1.0);
 
-      g.selectAll('.language-text')
+      g.selectAll('.languages-text')
       .transition()
       .duration(0)
       .attr('opacity', 0);
@@ -223,12 +223,17 @@ var scrollVis = function () {
    */
 
 function showLanguageComposition() {
-    g.selectAll('.language-text')
+    g.selectAll('.languages-text')
     .transition()
     .duration(600)
     .attr('opacity', 1.0);
 
     g.selectAll('.openvis-title')
+    .transition()
+    .duration(0)
+    .attr('opacity', 0);
+
+    g.selectAll('.top-contributors-text')
     .transition()
     .duration(0)
     .attr('opacity', 0);
@@ -253,7 +258,7 @@ function showLanguageComposition() {
       .duration(600)
       .attr('opacity', 1.0);
   
-      g.selectAll('.language-text')
+      g.selectAll('.languages-text')
       .transition()
       .duration(0)
       .attr('opacity', 0);
@@ -379,9 +384,10 @@ function showEnd() {
    */
    chart.activate = function (index) {
     activeIndex = index;
-    console.log('INDEX', index);
+
     var sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
     var scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
+    console.log('scrolled',scrolledSections)
     scrolledSections.forEach(function (i) {
       console.log('function', activateFunctions[i]);
       activateFunctions[i]();
