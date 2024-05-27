@@ -12,7 +12,25 @@ import scroller from './scroller.js';
 const responseData = new ResponseData; 
 
 
+let owner = "";
+let repo = "";
+
+const f = document.getElementById("repo_owner_form")
+
+f.addEventListener("submit", async (event) => {
+  event.preventDefault()
+  const chosenOwner = document.getElementById("owner").value
+  owner = chosenOwner;
+  const chosenRepo = document.getElementById("repo").value
+  repo = chosenRepo;
+  display(await createDataArray());
+
+})
+console.log(owner, repo)
+
 var scrollVis = function () {
+
+
   // constants to define the size
   // and margins of the vis area.
   var width = 600;
@@ -39,6 +57,7 @@ var scrollVis = function () {
   // section is called.
   var activateFunctions = [];
   var updateFunctions = [];
+
 
   /**
    * chart
@@ -69,17 +88,18 @@ var scrollVis = function () {
       g = svg.select('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-      let languages = await responseData.getLanguages("apache", "flink");
-      let topTenContributors = await responseData.getTopTenContributors("apache", "flink");
-      let starGazersAndForks = await responseData.getStargazersAndForks("apache", "flink");
-      let maintenance = await responseData.getLengthActive("apache", "flink");
-      let size = await responseData.getSize("apache", "flink");
+      let languages = await responseData.getLanguages(owner, repo);
+      let topTenContributors = await responseData.getTopTenContributors(owner, repo);
+      let starGazersAndForks = await responseData.getStargazersAndForks(owner, repo);
+      let maintenance = await responseData.getLengthActive(owner, repo);
+      let size = await responseData.getSize(owner, repo);
 
 
       setupVis(languages, topTenContributors, starGazersAndForks, maintenance, size);
 
       setupSections();
     });
+
   };
 
 
@@ -87,10 +107,8 @@ var scrollVis = function () {
    * setupVis - creates initial elements for all
    * sections of the visualization.
    */
-//THIS IS WHERE I'LL MAKE CHANGES TO DISPLAY GITHUB DATA-- 
-//EACH PARAM WILL BE A RESULT FROM A METHOD IN THE GITHUB DATA PROCESSING CLASS
   var setupVis = function (languages, topTenContributors, starGazersAndForks, maintenance, size) {
-console.log('language',languages)
+
     g.append('text')
       .attr('class', 'openvis-title')
       .attr('x', width / 2)
@@ -387,13 +405,23 @@ function showEnd() {
 
     var sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
     var scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
-    console.log('scrolled',scrolledSections)
+// if activateFunctions[i] is a function, then activateFunctions[i]() is a function call.
     scrolledSections.forEach(function (i) {
-      console.log('function', activateFunctions[i]);
       activateFunctions[i]();
     });
     lastIndex = activeIndex;
   };
+
+  chart.deactivate = function (index) {
+    activeIndex = index;
+
+    var sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
+    var scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
+    // if activateFunctions[i] is a function, then activateFunctions[i]() is a function call.
+        scrolledSections.forEach(function (i) {
+          activateFunctions[i]() = null;
+        });
+  }
 
   /**
    * update
@@ -416,12 +444,12 @@ function showEnd() {
  *
  * @param data - loaded tsv data
  */
+
+
 function display(data) {
-  // create a new plot and
-  // display it
 
-  var plot = scrollVis();
-
+  
+ let plot = scrollVis();
 
   d3.select('#vis')
     .datum(data)
@@ -450,14 +478,13 @@ function display(data) {
 }
 
 async function createDataArray() {
-  let languages = await responseData.getLanguages("apache", "flink");
-  let topTenContributors = await responseData.getTopTenContributors("apache", "flink");
-  let starGazersAndForks = await responseData.getStargazersAndForks("apache", "flink");
-  let maintenance = await responseData.getLengthActive("apache", "flink");
-  let size = await responseData.getSize("apache", "flink");
+  let languages = await responseData.getLanguages(owner, repo);
+  let topTenContributors = await responseData.getTopTenContributors(owner, repo);
+  let starGazersAndForks = await responseData.getStargazersAndForks(owner, repo);
+  let maintenance = await responseData.getLengthActive(owner, repo);
+  let size = await responseData.getSize(owner, repo);
 
 
   return [languages, topTenContributors, starGazersAndForks, maintenance, size]
 }
 
-display(await createDataArray());
