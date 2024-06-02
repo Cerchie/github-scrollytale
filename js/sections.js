@@ -58,7 +58,6 @@ var scrollVis = function () {
   var activateFunctions = [];
   var updateFunctions = [];
 
-
   /**
    * chart
    *
@@ -101,7 +100,6 @@ var scrollVis = function () {
     });
 
   };
-
 
   /**
    * setupVis - creates initial elements for all
@@ -451,6 +449,8 @@ function display(data) {
   
  let plot = scrollVis();
 
+ d3.select('#vis').selectAll('*').remove();
+//need to clear this!!!!!!!!!!!!!!!!
   d3.select('#vis')
     .datum(data)
     .call(plot);
@@ -483,7 +483,6 @@ async function createDataArray() {
   let starGazersAndForks = await responseData.getStargazersAndForks(owner, repo);
   let maintenance = await responseData.getLengthActive(owner, repo);
   let size = await responseData.getSize(owner, repo);
-
 
   return [languages, topTenContributors, starGazersAndForks, maintenance, size]
 }
