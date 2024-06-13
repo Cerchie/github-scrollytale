@@ -88,6 +88,7 @@ var scrollVis = function () {
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
       let languages = await responseData.getLanguages(owner, repo);
+      let languagesArray = Object.entries(languages);
       let topTenContributors = await responseData.getTopTenContributors(owner, repo);
       let starGazersAndForks = await responseData.getStargazersAndForks(owner, repo);
       let maintenance = await responseData.getLengthActive(owner, repo);
@@ -141,6 +142,9 @@ var scrollVis = function () {
       .text(topTenContributors[0])
       .attr('opacity', 0);
 
+
+      //BEGIN LANG LOGIC
+      
     g.append('text')
       .attr('class', 'languages-text')
       .attr('x', width / 2)
@@ -148,7 +152,6 @@ var scrollVis = function () {
       .text(languages.Java)
       .attr('opacity', 0);
       
-
     g.append('text')
       .attr('class', 'end-text')
       .attr('x', width / 2)
@@ -450,7 +453,6 @@ function display(data) {
  let plot = scrollVis();
 
  d3.select('#vis').selectAll('*').remove();
-//need to clear this!!!!!!!!!!!!!!!!
   d3.select('#vis')
     .datum(data)
     .call(plot);
